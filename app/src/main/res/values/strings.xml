@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Cleverly tunnel</string>
+    <string name="Button_text">Start</string>
+    <string name="Button_winners">List</string>
+    <string name="Button_back">Back</string>
+    <string name="Button_save">Enable saving</string>
+    <string name="Countlevel">Level</string>
+    <string name="level2">Level 2</string>
+    <string name="Task_text">You should choose one of the two tunnels to survive. Under the tunnels will be written what awaits you there. Good luck!</string>
+    <string name="Text_continue">Continue</string>
+    <string name="Text_lose">Try again</string>
+    <string name="Lose_text">You lose</string>
+    <string name="Win_text">You win</string>
+    <string name="text_1_l">7 * 8 = 56</string>
+    <string name="text_2_l">13^2 = 169</string>
+    <string name="text_3_l">123 - 184 / 3^2 = 10^2</string>
+    <string name="text_4_l">1000 - 10^3 * 12 = -11000</string>
+    <string name="text_5_l">√144 / 2 + 3 - 122 = 131</string>
+    <string name="text_6_l">5^2 - 12 + 426 / 2 = 219,5</string>
+    <string name="text_7_l">The lions who have not eaten in 100 years</string>
+    <string name="text_8_l">41 * 3^4 / 3 = 1107</string>
+    <string name="text_9_l">(∛64 - 12) * 2 * (∜81 - 3) = -16</string>
+    <string name="text_10_l">The tunnel is smeared with poison that will kill any animal</string>
+    <string name="text_1_r">7 * 8 = 52</string>
+    <string name="text_2_r">13^2 = 196</string>
+    <string name="text_3_r">123 - 92 / 2^2 = 10^2</string>
+    <string name="text_4_r">1000 - 10^2 * 12 = 11000</string>
+    <string name="text_5_r">√144 / 2 + 3 - 122 = -113</string>
+    <string name="text_6_r">5^2 - 12 + 426 / 2 = 226</string>
+    <string name="text_7_r">Deadly venomous snakes</string>
+    <string name="text_8_r">41 * 3^4 / 3 = 9963</string>
+    <string name="text_9_r">(∛64 - 12) * 2 * (∜81 - 3) = 0</string>
+    <string name="text_10_r">The tunnel is filled with 1000 volt tungsten barbed wire</string>
+</resources>

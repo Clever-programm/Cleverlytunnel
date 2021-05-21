@@ -17,8 +17,7 @@ import java.io.IOException;
 public class EnableSave extends AppCompatActivity {
 
     private SQLiteDatabase mDb;
-    public String id;
-    public  String s;
+    public static String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +46,8 @@ public class EnableSave extends AppCompatActivity {
                 try{
                     Cursor cursor = mDb.rawQuery("SELECT id FROM `Records` WHERE User = '" + editName.getText() + "' AND Password = '" + editPass.getText() + "'",null);
                     cursor.moveToFirst();
-                    s = cursor.getString(0);
-                    Toast toast = Toast.makeText(getBaseContext(),"OK Your id = " + s, Toast.LENGTH_SHORT);
+                    id = cursor.getString(0);
+                    Toast toast = Toast.makeText(getBaseContext(),"OK Your id = " + id, Toast.LENGTH_SHORT);
                     toast.show();
                     cursor.close();
                 }catch (Exception e){
@@ -56,9 +55,29 @@ public class EnableSave extends AppCompatActivity {
                     Toast toast = Toast.makeText(getBaseContext(),"DataBaseError:1", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+                Intent intent = new Intent(EnableSave.this,GameLevels.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        Button button_regist = (Button)findViewById(R.id.button_register);
+        button_regist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+
+                }catch (Exception e){
+                    Log.d(e.getMessage(),"bd");
+                    Toast toast = Toast.makeText(getBaseContext(),"DataBaseError:1", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                Intent intent = new Intent(EnableSave.this,GameLevels.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
+
     
     @Override
     public void onBackPressed(){

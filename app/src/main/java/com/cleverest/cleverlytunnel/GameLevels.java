@@ -18,7 +18,6 @@ import java.io.IOException;
 
 public class GameLevels extends AppCompatActivity {
 
-    EnableSave idsave = new EnableSave();
     private SQLiteDatabase mDb;
     String rate;
     @Override
@@ -38,9 +37,8 @@ public class GameLevels extends AppCompatActivity {
         TextView tv10 = (TextView)findViewById(R.id.textView10);
 
             try{
-                String q = "SELECT Rating FROM `Records` WHERE id = " + idsave.s;
+                String q = "SELECT Rating FROM `Records` WHERE id = " + (EnableSave.id);
                 Cursor cursor = mDb.rawQuery(q,null);
-                Log.d(idsave.s,"oyoyoy");
                 cursor.moveToFirst();
                 rate = cursor.getString(0);
                 cursor.close();

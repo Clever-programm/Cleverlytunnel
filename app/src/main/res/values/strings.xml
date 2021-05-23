@@ -5,6 +5,7 @@
     <string name="Button_back">Back</string>
     <string name="Button_save">Enable saving</string>
     <string name="Countlevel">Level</string>
+    <string name="invent">Inventory</string>
     <string name="level2">Level 2</string>
     <string name="Task_text">You should choose one of the two tunnels to survive. Under the tunnels will be written what awaits you there. Good luck!</string>
     <string name="Text_continue">Continue</string>

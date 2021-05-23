@@ -42,12 +42,18 @@ public class GameViewLevel3 extends View {
     Bitmap exit =  BitmapFactory.decodeResource(getResources(), R.drawable.exit);
     Rect exitr = new Rect(0,0,exit.getWidth(),exit.getHeight());
 
+    Bitmap key =  BitmapFactory.decodeResource(getResources(), R.drawable.key);
+    Rect keyr = new Rect(0,0,key.getWidth(),key.getHeight());
+
+    Bitmap door =  BitmapFactory.decodeResource(getResources(), R.drawable.door);
+    Rect doorr = new Rect(0,0,door.getWidth(),door.getHeight());
+
     private float canvasSize;
-    int[][] board = {{9,0,0,99,99,99,9,9,9,9},{0,0,0,0,99,0,99,99,99,99},{9,9,9,0,9,9,9,9,9,99},{9,9,9,9,9,9,0,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,0,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,100,99},{9,9,9,9,9,9,9,9,9,9},};
+    int[][] board = {{9,0,0,99,99,99,6,9,9,9},{0,0,0,0,99,0,99,99,99,99},{9,9,9,0,9,9,9,9,9,99},{9,9,9,9,9,9,0,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,0,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,100,5},{9,9,9,9,9,9,9,9,9,9},};
 
     public GameViewLevel3(Context context, AttributeSet attrs) {
         super(context, attrs);
-        canvasSize = (int) convertDpToPixel(355, context);
+        canvasSize = (int) convertDpToPixel(350, context);
         w = (int) (canvasSize / n);
     }
 
@@ -72,6 +78,12 @@ public class GameViewLevel3 extends View {
                 if (board[i][j] == 10) {
                     canvas.drawBitmap(b,br, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
                 }
+                if (board[i][j] == 5) {
+                    canvas.drawBitmap(door,doorr, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
+                }
+                if (board[i][j] == 6) {
+                    canvas.drawBitmap(key,keyr, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
+                }
                 if (board[i][j] == 100) {
                     canvas.drawBitmap(exit,exitr, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
                 }
@@ -94,169 +106,141 @@ public class GameViewLevel3 extends View {
             int i = (int) (event.getX() / w);
             int j = (int) (event.getY() / w);
 
-
-
-            if(personX==0 && personY==0){
-                if(board[personX+1][personY]==board[i][j]&&board[personX][personY+1]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
-
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
+            if(i==personX-1 && j==personY){
+                //left
+                for (int x = 0; x < n; x++) {
+                    for (int y = 0; y < n; y++) {
+                        if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-            }else if(personX==9&&personY==9){
-                if(board[personX-1][personY]==board[i][j]&&board[personX][personY-1]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                    board[i][j] = (board[i][j]+1)%3;
+                }
 
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
+                if(board[i][j]==2){
+                    board[personX][personY]=0;
+                    personX=i;
+                    personY=j;
+                    board[personX][personY]=10;
+                }
+            }else if(i==personX+1 && j==personY){
+                //right
+                for (int x = 0; x < n; x++) {
+                    for (int y = 0; y < n; y++) {
+                        if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-            }else if(personX==0&&personY==9){
-                if(board[personX+1][personY]==board[i][j]&&board[personX][personY-1]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                    board[i][j] = (board[i][j]+1)%3;
+                }
 
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
+                if(board[i][j]==2){
+                    board[personX][personY]=0;
+                    personX=i;
+                    personY=j;
+                    board[personX][personY]=10;
+                }
+            }else if(i==personX && j==personY-1){
+                //down
+                for (int x = 0; x < n; x++) {
+                    for (int y = 0; y < n; y++) {
+                        if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-            }else if(personX==9&&personY==0){
-                if(board[personX-1][personY]==board[i][j]&&board[personX][personY+1]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                    board[i][j] = (board[i][j]+1)%3;
+                }
 
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
+                if(board[i][j]==2){
+                    board[personX][personY]=0;
+                    personX=i;
+                    personY=j;
+                    board[personX][personY]=10;
+                }
+            }else if(i==personX && j==personY+1){
+                //up
+                for (int x = 0; x < n; x++) {
+                    for (int y = 0; y < n; y++) {
+                        if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-            }else if(personX==0){
-                if(board[personX+1][personY]==board[i][j]&&board[personX][personY+1]==board[i][j]&&board[personX][personY-1]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                    board[i][j] = (board[i][j]+1)%3;
+                }
 
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
+                if(board[i][j]==2){
+                    board[personX][personY]=0;
+                    personX=i;
+                    personY=j;
+                    board[personX][personY]=10;
+                }
+            }else if(i==personX-1 && j==personY-1){
+                //left-down
+                for (int x = 0; x < n; x++) {
+                    for (int y = 0; y < n; y++) {
+                        if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-            }else if(personX==9){
-                if(board[personX-1][personY]==board[i][j]&&board[personX][personY+1]==board[i][j]&&board[personX][personY-1]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                    board[i][j] = (board[i][j]+1)%3;
+                }
 
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
+                if(board[i][j]==2){
+                    board[personX][personY]=0;
+                    personX=i;
+                    personY=j;
+                    board[personX][personY]=10;
+                }
+            }else if(i==personX+1 && j==personY+1){
+                //right-up
+                for (int x = 0; x < n; x++) {
+                    for (int y = 0; y < n; y++) {
+                        if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-            }else if(personY==0){
-                if(board[personX][personY+1]==board[i][j]&&board[personX+1][personY]==board[i][j]&&board[personX-1][personY]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                    board[i][j] = (board[i][j]+1)%3;
+                }
 
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
+                if(board[i][j]==2){
+                    board[personX][personY]=0;
+                    personX=i;
+                    personY=j;
+                    board[personX][personY]=10;
+                }
+            }else if(i==personX+1 && j==personY-1){
+                //down-right
+                for (int x = 0; x < n; x++) {
+                    for (int y = 0; y < n; y++) {
+                        if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-            }else if(personY==9){
-                if(board[personX][personY-1]==board[i][j]&&board[personX+1][personY]==board[i][j]&&board[personX-1][personY]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                    board[i][j] = (board[i][j]+1)%3;
+                }
 
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
+                if(board[i][j]==2){
+                    board[personX][personY]=0;
+                    personX=i;
+                    personY=j;
+                    board[personX][personY]=10;
+                }
+            }else if(i==personX-1 && j==personY+1){
+                //up-left
+                for (int x = 0; x < n; x++) {
+                    for (int y = 0; y < n; y++) {
+                        if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-            }else{
-                if(board[personX][personY-1]==board[i][j]&&board[personX][personY+1]==board[i][j]&&board[personX+1][personY]==board[i][j]&&board[personX-1][personY]==board[i][j]){
-                    for (int x = 0; x < n; x++) {
-                        for (int y = 0; y < n; y++) {
-                            if(board[x][y]!=10 && board[x][y]!=100 && board[x][y]!=9 && board[x][y]!=99 && board[x][y]!=board[i][j])board[x][y]=0;
-                        }
-                    }
-                    if(board[i][j]!=9&&board[i][j]!=100){
-                        board[i][j] = (board[i][j]+1)%3;
-                    }
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                    board[i][j] = (board[i][j]+1)%3;
+                }
 
-                    if(board[i][j]==2){
-                        board[personX][personY]=0;
-                        personX=i;
-                        personY=j;
-                        board[personX][personY]=10;
-                    }
+                if(board[i][j]==2){
+                    board[personX][personY]=0;
+                    personX=i;
+                    personY=j;
+                    board[personX][personY]=10;
                 }
             }
 
@@ -264,25 +248,50 @@ public class GameViewLevel3 extends View {
                 if (board[personX+1][personY]==100) {
                     Level3.winner = true;
                 }
+                if (board[personX+1][personY]==6) {
+                    Level3.door_key = true;
+                    board[personX+1][personY]=0;
+                }
+                if (board[personX+1][personY]==5) {
+                    if(Level3.door_key)board[personX+1][personY]=0;
+                }
             }catch (Exception e){}
             try{
                 if (board[personX-1][personY]==100) {
                     Level3.winner = true;
+                }
+                if (board[personX-1][personY]==6) {
+                    Level3.door_key = true;
+                    board[personX-1][personY]=0;
+                }
+                if (board[personX-1][personY]==5) {
+                    if(Level3.door_key)board[personX-1][personY]=0;
                 }
             }catch (Exception e){}
             try{
                 if (board[personX][personY+1]==100) {
                     Level3.winner = true;
                 }
+                if (board[personX][personY+1]==6) {
+                    Level3.door_key = true;
+                    board[personX][personY+1]=0;
+                }
+                if (board[personX][personY+1]==5) {
+                    if(Level3.door_key)board[personX][personY+1]=0;
+                }
             }catch (Exception e){}
             try{
                 if (board[personX][personY-1]==100) {
                     Level3.winner = true;
                 }
+                if (board[personX][personY-1]==6) {
+                    Level3.door_key = true;
+                    board[personX][personY-1]=0;
+                }
+                if (board[personX][personY-1]==5) {
+                    if(Level3.door_key)board[personX][personY-1]=0;
+                }
             }catch (Exception e){}
-
-
-
 
             invalidate();
         }

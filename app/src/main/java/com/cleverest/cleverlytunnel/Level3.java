@@ -22,6 +22,7 @@ public class Level3 extends AppCompatActivity {
     private Toast backToast;
     Dialog win;
     static public boolean winner = false;
+    static public boolean door_key = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

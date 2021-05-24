@@ -23,6 +23,13 @@ public class Array {
             R.string.text_9_r,
             R.string.text_10_r,
     };
+    final int[] inventory = {
+            R.id.slot1,
+            R.id.slot2,
+            R.id.slot3,
+            R.id.slot4,
+            R.id.slot5,
+    };
     boolean saving = false;
 
 }

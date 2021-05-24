@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GameViewLevel3 extends View {
@@ -30,19 +31,24 @@ public class GameViewLevel3 extends View {
     private boolean right;
     private boolean left;
 
+    Array array = new Array();
+
     Bitmap b =  BitmapFactory.decodeResource(getResources(), R.drawable.shar);
     Rect br = new Rect(0,0,b.getWidth(),b.getHeight());
 
     Bitmap tunn =  BitmapFactory.decodeResource(getResources(), R.drawable.tunnel);
     Rect tunnr = new Rect(0,0,tunn.getWidth(),tunn.getHeight());
 
-    Bitmap stena =  BitmapFactory.decodeResource(getResources(), R.drawable.stena);
+    Bitmap stena =  BitmapFactory.decodeResource(getResources(), R.drawable.stena_ok);
     Rect stenar = new Rect(0,0,stena.getWidth(),stena.getHeight());
+
+    Bitmap stenac =  BitmapFactory.decodeResource(getResources(), R.drawable.stena_krash);
+    Rect stenacr = new Rect(0,0,stenac.getWidth(),stenac.getHeight());
 
     Bitmap exit =  BitmapFactory.decodeResource(getResources(), R.drawable.exit);
     Rect exitr = new Rect(0,0,exit.getWidth(),exit.getHeight());
 
-    Bitmap key =  BitmapFactory.decodeResource(getResources(), R.drawable.key);
+    Bitmap key =  BitmapFactory.decodeResource(getResources(), R.drawable.key_door);
     Rect keyr = new Rect(0,0,key.getWidth(),key.getHeight());
 
     Bitmap door =  BitmapFactory.decodeResource(getResources(), R.drawable.door);
@@ -91,7 +97,7 @@ public class GameViewLevel3 extends View {
                     canvas.drawBitmap(stena,stenar, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
                 }
                 if (board[i][j] == 99) {
-                    canvas.drawBitmap(stena,stenar, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
+                    canvas.drawBitmap(stenac,stenacr, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
                 }
                 if (board[i][j] == 1) {
                     p1.setColor(Color.GREEN);

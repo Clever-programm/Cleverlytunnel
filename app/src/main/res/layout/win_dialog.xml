@@ -37,7 +37,7 @@
             android:layout_height="0dp"
             android:layout_weight="60"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/window_img" />
+            app:srcCompat="@drawable/winchik" />
 
         <TextView
             android:id="@+id/textDescription"

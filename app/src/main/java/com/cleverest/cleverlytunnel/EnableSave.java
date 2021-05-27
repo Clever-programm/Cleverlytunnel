@@ -65,13 +65,25 @@ public class EnableSave extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    mDb.execSQL("insert into records (user, password, rating) values ('" + editName.getText() + "', '" + editPass.getText()  + "', 0)");
-                    Cursor cursor = mDb.rawQuery("SELECT id FROM `Records` WHERE User = '" + editName.getText() + "' AND Password = '" + editPass.getText() + "'",null);
-                    cursor.moveToFirst();
-                    id = cursor.getString(0);
-                    Toast toast = Toast.makeText(getBaseContext(),"OK Your id = " + id, Toast.LENGTH_SHORT);
-                    toast.show();
-                    cursor.close();
+                    if ((editName.getText()).length()==0 && (editPass.getText()).length()==0){
+                        Toast toast = Toast.makeText(getBaseContext(),"Add name and password",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }else if ((editName.getText()).length()==0){
+                        Toast toast = Toast.makeText(getBaseContext(),"Add name",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }else if ((editPass.getText()).length()==0){
+                        Toast toast = Toast.makeText(getBaseContext(),"Add password",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }else{
+                        mDb.execSQL("insert into records (user, password, rating) values ('" + editName.getText() + "', '" + editPass.getText()  + "', 0)");
+                        Cursor cursor = mDb.rawQuery("SELECT id FROM `Records` WHERE User = '" + editName.getText() + "' AND Password = '" + editPass.getText() + "'",null);
+                        cursor.moveToFirst();
+                        id = cursor.getString(0);
+                        Toast toast = Toast.makeText(getBaseContext(),"OK Your id = " + id, Toast.LENGTH_SHORT);
+                        toast.show();
+                        cursor.close();
+                    }
+
                 }catch (Exception e){
                     Log.d(e.getMessage(),"bd");
                     Toast toast = Toast.makeText(getBaseContext(),"DataBaseError:1", Toast.LENGTH_SHORT);

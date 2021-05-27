@@ -6,20 +6,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 public class Level3 extends AppCompatActivity {
 
     Array array = new Array();
     private long BackPressedTime;
     private Toast backToast;
+    private SQLiteDatabase mDb;
     Dialog win;
     static public boolean winner = false;
     static public boolean door_key = false;
@@ -28,6 +35,10 @@ public class Level3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level3);
+        initDB();
+
+        TextView level = (TextView)findViewById(R.id.text_levels);
+        level.setText(R.string.level3);
 
         Button btnback = (Button)findViewById(R.id.button_back);
         btnback.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +92,27 @@ public class Level3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(winner){
+
+                    try{
+                        Cursor cursor = mDb.rawQuery("SELECT rating FROM Records WHERE id = " + EnableSave.id,null);
+                        cursor.moveToFirst();
+                        int rate = Integer.parseInt(cursor.getString(0));
+                        cursor.close();
+                        if(rate==2){
+                            mDb.execSQL("update records set rating = 3 where id = "+ EnableSave.id);
+                        }
+                        else if(rate<2){
+                            Toast toast = Toast.makeText(getBaseContext(),"You did not pass level 2", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }catch (Exception e){
+                        Log.d(e.getMessage(),"bd");
+                        Toast toast = Toast.makeText(getBaseContext(),"DataBaseError:1", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
                     win.show();
+                    winner=false;
                 }
             }
         });
@@ -106,5 +137,16 @@ public class Level3 extends AppCompatActivity {
             backToast.show();
         }
         BackPressedTime = System.currentTimeMillis();
+    }
+
+    private void initDB() {
+        //Переменная для работы с БД
+        DatabaseHelper mDBHelper = new DatabaseHelper(this);
+        try {
+            mDBHelper.updateDataBase();
+        } catch (IOException mIOException) {
+            throw new Error("UnableToUpdateDatabase");
+        }
+        mDb = mDBHelper.getWritableDatabase();
     }
 }

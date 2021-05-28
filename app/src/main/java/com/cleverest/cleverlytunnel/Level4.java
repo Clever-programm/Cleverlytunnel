@@ -1,10 +1,6 @@
 package com.cleverest.cleverlytunnel;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,13 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.IOException;
 
-public class Level3 extends AppCompatActivity {
+public class Level4 extends AppCompatActivity {
 
     Array array = new Array();
     private long BackPressedTime;
@@ -29,23 +26,24 @@ public class Level3 extends AppCompatActivity {
     private SQLiteDatabase mDb;
     Dialog win;
     static public boolean winner = false;
+    static public boolean ebbok = true;
     static public boolean door_key = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level3);
+        setContentView(R.layout.activity_level4);
         initDB();
 
         TextView level = (TextView)findViewById(R.id.text_levels);
-        level.setText(R.string.level3);
+        level.setText(R.string.level4);
 
         Button btnback = (Button)findViewById(R.id.button_back);
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent intent = new Intent(Level3.this,GameLevels.class);
+                    Intent intent = new Intent(Level4.this,GameLevels.class);
                     startActivity(intent);
                     finish();
                 }catch(Exception e){
@@ -66,7 +64,7 @@ public class Level3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent intent = new Intent(Level3.this,GameLevels.class);
+                    Intent intent = new Intent(Level4.this,GameLevels.class);
                     startActivity(intent);
                     finish();
                 }catch (Exception e){
@@ -80,9 +78,6 @@ public class Level3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    Intent intent = new Intent(Level3.this,Level4.class);
-                    startActivity(intent);
-                    finish();
                 }catch (Exception e){
 
                 }
@@ -101,11 +96,11 @@ public class Level3 extends AppCompatActivity {
                         cursor.moveToFirst();
                         int rate = Integer.parseInt(cursor.getString(0));
                         cursor.close();
-                        if(rate==2){
-                            mDb.execSQL("update records set rating = 3 where id = "+ EnableSave.id);
+                        if(rate==3){
+                            mDb.execSQL("update records set rating = 4 where id = "+ EnableSave.id);
                         }
-                        else if(rate<2){
-                            Toast toast = Toast.makeText(getBaseContext(),"You did not pass level 2", Toast.LENGTH_SHORT);
+                        else if(rate<3){
+                            Toast toast = Toast.makeText(getBaseContext(),"You did not pass level 3", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     }catch (Exception e){
@@ -129,7 +124,7 @@ public class Level3 extends AppCompatActivity {
 
         if(BackPressedTime + 2000 > System.currentTimeMillis()){
             try{
-                Intent intent = new Intent(Level3.this,GameLevels.class);
+                Intent intent = new Intent(Level4.this,GameLevels.class);
                 startActivity(intent);
                 finish();
             }catch(Exception e){

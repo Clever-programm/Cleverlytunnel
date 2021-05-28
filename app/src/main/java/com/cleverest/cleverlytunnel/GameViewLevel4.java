@@ -1,8 +1,6 @@
 package com.cleverest.cleverlytunnel;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,31 +8,35 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-public class GameViewLevel3 extends View {
+public class GameViewLevel4 extends View {
 
     public int n = 10;
     public int w;
-    public int personX = 0;
-    public int personY = 0;
-    public int count = 0;
+    public int personX = 8;
+    public int personY = 8;
+    private boolean up;
+    private boolean down;
+    private boolean right;
+    private boolean left;
 
     Array array = new Array();
 
     Bitmap b =  BitmapFactory.decodeResource(getResources(), R.drawable.shar);
     Rect br = new Rect(0,0,b.getWidth(),b.getHeight());
 
+    Bitmap ebb =  BitmapFactory.decodeResource(getResources(), R.drawable.ebb);
+    Rect ebbr = new Rect(0,0,ebb.getWidth(),ebb.getHeight());
+
     Bitmap tunn =  BitmapFactory.decodeResource(getResources(), R.drawable.tunnel);
     Rect tunnr = new Rect(0,0,tunn.getWidth(),tunn.getHeight());
+
+    Bitmap water =  BitmapFactory.decodeResource(getResources(), R.drawable.water);
+    Rect waterr = new Rect(0,0, water.getWidth(), water.getHeight());
 
     Bitmap stena =  BitmapFactory.decodeResource(getResources(), R.drawable.stena_ok);
     Rect stenar = new Rect(0,0,stena.getWidth(),stena.getHeight());
@@ -52,9 +54,9 @@ public class GameViewLevel3 extends View {
     Rect doorr = new Rect(0,0,door.getWidth(),door.getHeight());
 
     private float canvasSize;
-    int[][] board = {{9,0,0,99,99,99,6,9,9,9},{0,0,0,0,99,0,99,99,99,99},{9,9,9,0,9,9,9,9,9,99},{9,9,9,9,9,9,0,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,0,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,9,99},{9,9,9,9,9,9,9,9,100,5},{9,9,9,9,9,9,9,9,9,9},};
+    int[][] board = {{8,8,8,8,8,8,8,8,9,100},{8,8,8,8,8,8,8,8,9,5},{8,8,9,9,9,9,9,8,9,0},{8,8,88,0,0,0,9,8,8,8},{8,8,9,0,0,0,9,8,9,99},{8,8,9,9,9,99,9,9,9,0},{8,8,9,0,0,9,0,0,0,0},{8,8,9,9,0,9,0,0,0,9},{8,8,8,9,0,9,0,0,0,9},{8,8,8,9,6,9,9,9,9,9},};
 
-    public GameViewLevel3(Context context, AttributeSet attrs) {
+    public GameViewLevel4(Context context, AttributeSet attrs) {
         super(context, attrs);
         canvasSize = (int) convertDpToPixel(350, context);
         w = (int) (canvasSize / n);
@@ -87,6 +89,12 @@ public class GameViewLevel3 extends View {
                 if (board[i][j] == 6) {
                     canvas.drawBitmap(key,keyr, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
                 }
+                if (board[i][j] == 8) {
+                    canvas.drawBitmap(water,waterr, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
+                }
+                if (board[i][j] == 88) {
+                    canvas.drawBitmap(ebb,ebbr, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
+                }
                 if (board[i][j] == 100) {
                     canvas.drawBitmap(exit,exitr, new Rect(i * w + 1, j * w + 1, (i + 1) * w - 1, (j + 1) * w - 1), p1);
                 }
@@ -116,7 +124,7 @@ public class GameViewLevel3 extends View {
                         if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6&&board[i][j]!=8&&board[i][j]!=88){
                     board[i][j] = (board[i][j]+1)%3;
                 }
 
@@ -133,7 +141,7 @@ public class GameViewLevel3 extends View {
                         if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6&&board[i][j]!=8&&board[i][j]!=88){
                     board[i][j] = (board[i][j]+1)%3;
                 }
 
@@ -150,7 +158,7 @@ public class GameViewLevel3 extends View {
                         if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6&&board[i][j]!=8&&board[i][j]!=88){
                     board[i][j] = (board[i][j]+1)%3;
                 }
 
@@ -167,7 +175,7 @@ public class GameViewLevel3 extends View {
                         if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6&&board[i][j]!=8&&board[i][j]!=88){
                     board[i][j] = (board[i][j]+1)%3;
                 }
 
@@ -184,7 +192,7 @@ public class GameViewLevel3 extends View {
                         if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6&&board[i][j]!=8&&board[i][j]!=88){
                     board[i][j] = (board[i][j]+1)%3;
                 }
 
@@ -201,7 +209,7 @@ public class GameViewLevel3 extends View {
                         if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6&&board[i][j]!=8&&board[i][j]!=88){
                     board[i][j] = (board[i][j]+1)%3;
                 }
 
@@ -218,7 +226,7 @@ public class GameViewLevel3 extends View {
                         if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6&&board[i][j]!=8&&board[i][j]!=88){
                     board[i][j] = (board[i][j]+1)%3;
                 }
 
@@ -235,7 +243,7 @@ public class GameViewLevel3 extends View {
                         if(board[x][y]==1 && board[x][y]!=board[i][j])board[x][y]=0;
                     }
                 }
-                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6){
+                if(board[i][j]!=9&&board[i][j]!=100&&board[i][j]!=5&&board[i][j]!=6&&board[i][j]!=8&&board[i][j]!=88){
                     board[i][j] = (board[i][j]+1)%3;
                 }
 
@@ -249,50 +257,87 @@ public class GameViewLevel3 extends View {
 
             try{
                 if (board[personX+1][personY]==100) {
-                    Level3.winner = true;
+                    Level4.winner = true;
+                }
+                if (board[personX+1][personY]==88) {
+                    Level4.ebbok=false;
+                    for (int x = 0; x < n; x++) {
+                        for (int y = 0; y < n; y++) {
+                            if(board[x][y]==1 && board[x][y]!=board[i][j]&&board[x][y]==8)board[x][y]=0;
+                        }
+                    }
+                    board[personX+1][personY]=99;
+
                 }
                 if (board[personX+1][personY]==6) {
-                    Level3.door_key = true;
+                    Level4.door_key = true;
                     board[personX+1][personY]=0;
                 }
                 if (board[personX+1][personY]==5) {
-                    if(Level3.door_key)board[personX+1][personY]=0;
+                    if(Level4.door_key)board[personX+1][personY]=0;
                 }
             }catch (Exception e){}
             try{
                 if (board[personX-1][personY]==100) {
-                    Level3.winner = true;
+                    Level4.winner = true;
+                }
+                if (board[personX-1][personY]==88) {
+                    Level4.ebbok=false;
+                    for (int x = 0; x < n; x++) {
+                        for (int y = 0; y < n; y++) {
+                            if(board[x][y]==1 && board[x][y]!=board[i][j]&&board[x][y]==8)board[x][y]=0;
+                        }
+                    }
+                    board[personX-1][personY]=99;
                 }
                 if (board[personX-1][personY]==6) {
-                    Level3.door_key = true;
+                    Level4.door_key = true;
                     board[personX-1][personY]=0;
                 }
                 if (board[personX-1][personY]==5) {
-                    if(Level3.door_key)board[personX-1][personY]=0;
+                    if(Level4.door_key)board[personX-1][personY]=0;
                 }
             }catch (Exception e){}
             try{
                 if (board[personX][personY+1]==100) {
-                    Level3.winner = true;
+                    Level4.winner = true;
+                }
+                if (board[personX][personY+1]==88) {
+                    Level4.ebbok=false;
+                    for (int x = 0; x < n; x++) {
+                        for (int y = 0; y < n; y++) {
+                            if(board[x][y]==1 && board[x][y]!=board[i][j]&&board[x][y]==8)board[x][y]=0;
+                        }
+                    }
+                    board[personX][personY+1]=99;
                 }
                 if (board[personX][personY+1]==6) {
-                    Level3.door_key = true;
+                    Level4.door_key = true;
                     board[personX][personY+1]=0;
                 }
                 if (board[personX][personY+1]==5) {
-                    if(Level3.door_key)board[personX][personY+1]=0;
+                    if(Level4.door_key)board[personX][personY+1]=0;
                 }
             }catch (Exception e){}
             try{
                 if (board[personX][personY-1]==100) {
-                    Level3.winner = true;
+                    Level4.winner = true;
+                }
+                if (board[personX][personY-1]==88) {
+                    Level4.ebbok=false;
+                    for (int x = 0; x < n; x++) {
+                        for (int y = 0; y < n; y++) {
+                            if(board[x][y]==8)board[x][y]=0;
+                        }
+                    }
+                    board[personX][personY-1]=99;
                 }
                 if (board[personX][personY-1]==6) {
-                    Level3.door_key = true;
+                    Level4.door_key = true;
                     board[personX][personY-1]=0;
                 }
                 if (board[personX][personY-1]==5) {
-                    if(Level3.door_key)board[personX][personY-1]=0;
+                    if(Level4.door_key)board[personX][personY-1]=0;
                 }
             }catch (Exception e){}
 

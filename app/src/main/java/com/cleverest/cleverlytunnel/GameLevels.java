@@ -35,6 +35,15 @@ public class GameLevels extends AppCompatActivity {
         TextView tv8 = (TextView)findViewById(R.id.textView8);
         TextView tv9 = (TextView)findViewById(R.id.textView9);
         TextView tv10 = (TextView)findViewById(R.id.textView10);
+        tv2.setVisibility(View.GONE);
+        tv3.setVisibility(View.GONE);
+        tv4.setVisibility(View.GONE);
+        tv5.setVisibility(View.GONE);
+        tv6.setVisibility(View.GONE);
+        tv7.setVisibility(View.GONE);
+        tv8.setVisibility(View.GONE);
+        tv9.setVisibility(View.GONE);
+        tv10.setVisibility(View.GONE);
 
             try{
                 String q = "SELECT Rating FROM `Records` WHERE id = " + (EnableSave.id);
@@ -47,30 +56,39 @@ public class GameLevels extends AppCompatActivity {
 
                 if(rating >= 1){
                     tv1.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv2.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 2){
                     tv2.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv3.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 3){
                     tv3.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv4.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 4){
                     tv4.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv5.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 5){
                     tv5.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv6.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 6){
                     tv6.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv7.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 7){
                     tv7.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv8.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 8){
                     tv8.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv9.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 9){
                     tv9.setBackgroundResource(R.drawable.button_level_style_complite);
+                    tv10.setVisibility(View.VISIBLE);
                 }
                 if(rating >= 10){
                     tv10.setBackgroundResource(R.drawable.button_level_style_complite);
@@ -90,7 +108,9 @@ public class GameLevels extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }catch(Exception e){
-
+                    Log.d(e.getMessage(),"intent");
+                    Toast toast = Toast.makeText(getBaseContext(),"IntentError:3", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -103,7 +123,9 @@ public class GameLevels extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }catch(Exception e){
-
+                    Log.d(e.getMessage(),"intent");
+                    Toast toast = Toast.makeText(getBaseContext(),"IntentError:3", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -116,7 +138,9 @@ public class GameLevels extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }catch(Exception e){
-
+                    Log.d(e.getMessage(),"intent");
+                    Toast toast = Toast.makeText(getBaseContext(),"IntentError:3", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -129,7 +153,9 @@ public class GameLevels extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }catch(Exception e){
-
+                    Log.d(e.getMessage(),"intent");
+                    Toast toast = Toast.makeText(getBaseContext(),"IntentError:3", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -142,7 +168,24 @@ public class GameLevels extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }catch(Exception e){
+                    Log.d(e.getMessage(),"intent");
+                    Toast toast = Toast.makeText(getBaseContext(),"IntentError:3", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
 
+        tv4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    Intent intent = new Intent(GameLevels.this,Level4.class);
+                    startActivity(intent);
+                    finish();
+                }catch(Exception e){
+                    Log.d(e.getMessage(),"intent");
+                    Toast toast = Toast.makeText(getBaseContext(),"IntentError:3", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -158,7 +201,9 @@ public class GameLevels extends AppCompatActivity {
             startActivity(intent);
             finish();
         }catch(Exception e){
-
+            Log.d(e.getMessage(),"intent");
+            Toast toast = Toast.makeText(getBaseContext(),"IntentError:3", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
     private void initDB() {

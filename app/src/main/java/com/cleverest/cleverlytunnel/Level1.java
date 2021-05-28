@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -24,6 +25,9 @@ public class Level1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level1);
         initDB();
+
+        TextView level = (TextView)findViewById(R.id.text_levels);
+        level.setText(R.string.level1);
 
         Button btnback = (Button)findViewById(R.id.button_back);
         btnback.setOnClickListener(new View.OnClickListener() {

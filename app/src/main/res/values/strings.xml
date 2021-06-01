@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Cleverly tunnel</string>
     <string name="Button_text">Start</string>
+    <string name="Button_info">About the game</string>
     <string name="Button_winners">List</string>
     <string name="Button_back">Back</string>
     <string name="Button_save">Enable saving</string>
@@ -16,6 +17,7 @@
     <string name="level8">Level 8</string>
     <string name="level9">Level 9</string>
     <string name="level10">Level 10</string>
+    <string name="logo">Cleverly tunnel is an adventure game with simple puzzles. The essence of the game is that the player goes to the forest and there meets an unknown creature, after which he runs away from it and runs into a cave where his adventure begins. The player task is to solve all the puzzles on his way and get out of the cave.</string>
     <string name="Task_text">You should choose one of the two tunnels to survive. Under the tunnels will be written what awaits you there. Good luck!</string>
     <string name="Text_continue">Continue</string>
     <string name="Text_lose">Try again</string>
